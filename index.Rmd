@@ -1,0 +1,18 @@
+---
+title: "Report"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Summary Information
+
+# Summary Table
+
+# Description of a Particular Incident
+
+# Interactive Map
+
+# Custom Plot
