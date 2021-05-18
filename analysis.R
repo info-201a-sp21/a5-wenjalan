@@ -1,23 +1,20 @@
-library('dplyr')
-library('plotly')
-library('leaflet')
-library('ggplot2')
-library('lubridate')
+library("dplyr")
+library("plotly")
+library("leaflet")
+library("ggplot2")
+library("lubridate")
 
 # load data
-data <- read.csv('data/shootings-2018.csv', stringsAsFactors = FALSE)
+data <- read.csv("data/shootings-2018.csv", stringsAsFactors = FALSE)
 
 # returns a list of data used for the summary
 get_summary_info <- function(data) {
-  # testing: data = shootings
-  data = shootings
-  
   # list to return
   info <- list()
-  
+
   # n shootings
   info$n_shootings <- nrow(data)
-  
+
   # n lives lost
   info$n_lives_lost <- data %>%
     summarize(
@@ -26,14 +23,14 @@ get_summary_info <- function(data) {
     pull(
       n_lives_lost
     )
-  
+
   # max city impact: max number of deaths + injuries (casualites)
   info$most_impacted_city <- data %>%
     group_by(
       city
     ) %>%
     summarize(
-      num_casualties = sum(num_killed) + sum(num_injured) 
+      num_casualties = sum(num_killed) + sum(num_injured)
     ) %>%
     filter(
       num_casualties == max(num_casualties)
@@ -41,7 +38,7 @@ get_summary_info <- function(data) {
     pull(
       city
     )
-  
+
   # average deaths per shooting
   info$avg_deaths <- data %>%
     summarize(
@@ -50,8 +47,8 @@ get_summary_info <- function(data) {
     pull(
       avg_deaths
     )
-    
-  
+
+
   # average injuries
   info$avg_injuries <- data %>%
     summarize(
@@ -60,16 +57,16 @@ get_summary_info <- function(data) {
     pull(
       avg_injuries
     )
-  
+
   # return the list
-  return (info)
+  return(info)
 }
 
 # returns a table with some summarizing information
 get_summary_table <- function(data) {
   # testing: data = shootings
   # data = shootings
-  
+
   # create a casualties column
   # choose the date, city, state, and casualties columns
   # sort table by state, then city
@@ -90,27 +87,27 @@ get_summary_table <- function(data) {
     arrange(
       -casualties
     )
-  
+
   # create the table itself
   table <- plot_ly(
-    type = 'table',
+    type = "table",
     header = list(
-      values = c('City', 'State', 'Casualties')
+      values = c("City", "State", "Casualties")
     ),
     cells = list(
       values = rbind(table_data$city, table_data$state, table_data$casualties)
     )
   )
-  
+
   # return the table
-  return (table)
+  return(table)
 }
 
 # returns information about the shooting with the most casualties
 get_most_casualties_info <- function(data) {
   # list to return
   info <- list()
-  
+
   # get the one with the most casualties
   most_casualties_shooting <- data %>%
     mutate(
@@ -119,7 +116,7 @@ get_most_casualties_info <- function(data) {
     filter(
       casualties == max(casualties)
     )
-  
+
   # save the date, location, num injured, and num killed
   info$date <- most_casualties_shooting$date
   info$state <- most_casualties_shooting$state
@@ -128,9 +125,9 @@ get_most_casualties_info <- function(data) {
   info$long <- most_casualties_shooting$long
   info$n_killed <- most_casualties_shooting$num_killed
   info$n_injured <- most_casualties_shooting$num_injured
-  
+
   # return
-  return (info)
+  return(info)
 }
 
 # returns an interactive map of the incidents
@@ -141,8 +138,8 @@ get_interactive_map <- function(data) {
     addCircleMarkers(
       ~long,
       ~lat,
-      radius = ~(num_killed + num_injured),
-      popup = ~paste(
+      radius = ~ (num_killed + num_injured),
+      popup = ~ paste(
         "<p>Killed:",
         num_killed,
         "<br/>",
@@ -154,9 +151,9 @@ get_interactive_map <- function(data) {
         "</p>"
       )
     )
-  
+
   # return the map
-  return (map)
+  return(map)
 }
 
 # returns a bar plot of number of casualties in each state
@@ -174,15 +171,15 @@ get_bar_plot <- function(data) {
       state,
       casualties
     )
-  
+
   # create the plot
   plot <- ggplot(
-      data = graph_data,
-      aes(
-        x = reorder(state, -casualties),
-        y = casualties
-      )
-    ) +
+    data = graph_data,
+    aes(
+      x = reorder(state, -casualties),
+      y = casualties
+    )
+  ) +
     ggtitle(
       "Casualties by State"
     ) +
@@ -193,13 +190,13 @@ get_bar_plot <- function(data) {
       "Casualties"
     ) +
     geom_bar(
-      stat = 'identity',
+      stat = "identity",
       width = 0.5,
     )
-  
+
   # wrap it in plotly?
   plot <- ggplotly(plot)
-    
+
   # return the plot
-  return (plot)
+  return(plot)
 }
