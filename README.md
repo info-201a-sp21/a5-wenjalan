@@ -1,2 +1,2 @@
 # a5-data-report
-[Report](https://github.com/info-201a-sp21/a5-wenjalan/blob/master/index.html)
+[Report](https://info-201a-sp21.github.io/a5-wenjalan/)
