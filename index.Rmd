@@ -5,10 +5,15 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+source("analysis.R")
+shootings <- read.csv("data/shootings-2018.csv", stringsAsFactors = FALSE)
 ```
 
 ## Summary Information
-In the United States, there have been `n_shootings` shootings. In those shootings, `n_lives_lost` lives have been lost. `max_city_impact` was the city most impacted by these shootings, with the most combined injuries and deaths of any city. On average, every shooting that occurs in the US will lead to the death of `avg_death` deaths. On average, every shooting will also have `avg_injuries` injuries as well.
+```{r echo=FALSE}
+summary <- get_summary_info(shootings)
+```
+In the United States, there have been `r summary$n_shootings` shootings. In those shootings, `r summary$n_lives_lost` lives have been lost. `r summary$most_impacted_city` was the city most impacted by these shootings, with the most casualties of any city. On average, every shooting that occurs in the US will lead to the death of `r summary$avg_death` deaths. On average, every shooting will also have `r summary$avg_injuries` injuries as well.
 
 ## Summary Table
 From this table, we can see that `max_city` has the most incidents of any city, `but not by a lot`. Other cities such as `other cities` also suffer from a significant amount of shooting incidents. `more insights here`
