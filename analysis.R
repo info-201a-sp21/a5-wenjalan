@@ -1,8 +1,10 @@
 library('dplyr')
 library('plotly')
+library('leaflet')
+library('htmltools')
 
 # load data
-shootings <- read.csv('data/shootings-2018.csv', stringsAsFactors = FALSE)
+# data <- read.csv('data/shootings-2018.csv', stringsAsFactors = FALSE)
 
 # returns a list of data used for the summary
 get_summary_info <- function(data) {
@@ -128,4 +130,30 @@ get_most_casualties_info <- function(data) {
   
   # return
   return (info)
+}
+
+# returns an interactive map of the incidents
+get_interactive_map <- function(data) {
+  # create the map
+  map <- leaflet(data = data) %>%
+    addProviderTiles("CartoDB.Positron") %>%
+    addCircleMarkers(
+      ~long,
+      ~lat,
+      radius = ~(num_killed + num_injured),
+      popup = ~paste(
+        "<p>Killed:",
+        num_killed,
+        "<br/>",
+        "Injured: ",
+        num_injured,
+        "<br/>",
+        "Date: ",
+        date,
+        "</p>"
+      )
+    )
+  
+  # return the map
+  return (map)
 }

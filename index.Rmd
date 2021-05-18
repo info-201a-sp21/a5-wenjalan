@@ -28,10 +28,14 @@ From this table, we can see that Chicago has the most incidents of any city, wit
 ```{r echo=FALSE}
 most_casualties_info <- get_most_casualties_info(shootings)
 ```
-The shooting with the most casualties overall was the [Douglas High School Shooting](https://www.nytimes.com/2018/02/14/us/parkland-school-shooting.html) in `r most_casualties_info$city`, `r most_casualties_info$state`. This shooting occurred on `r most_casualties_info$date`. There were `r most_casualties_info$n_injured` injuries and `r most_casualties_info$n_killed` deaths.
+The shooting with the most casualties overall was the [Douglas High School Shooting](https://www.nytimes.com/2018/02/14/us/parkland-school-shooting.html). This shooting occurred in `r most_casualties_info$city`, `r most_casualties_info$state`. This shooting occurred on `r most_casualties_info$date`. There were `r most_casualties_info$n_injured` injuries and `r most_casualties_info$n_killed` deaths.
 
 ## Interactive Map
-This map allows us to judge the geographical differences in where shootings occur. Here you can see `insight one`. In addition, `insight two`.
+```{r echo=FALSE}
+map <- get_interactive_map(shootings)
+```
+`r map`
+This map allows us to judge the geographical differences in where shootings occur. Here you can see clearly that the locations with the most shootings are often densely populated areas. In addition, one can also view that shootings are not localized to any one state or region -- they occur throughout many places in the United States. 
 
 ## Custom Plot
 Some analysis and scatterplot goes here.
