@@ -18,10 +18,17 @@ summary <- get_summary_info(shootings)
 In the United States, there have been `r summary$n_shootings` shootings. In those shootings, `r summary$n_lives_lost` lives have been lost. `r summary$most_impacted_city` was the city most impacted by these shootings, with the most casualties of any city. On average, every shooting that occurs in the US will lead to the death of `r summary$avg_death` deaths. On average, every shooting will also have `r summary$avg_injuries` injuries as well.
 
 ## Summary Table
-From this table, we can see that `max_city` has the most incidents of any city, `but not by a lot`. Other cities such as `other cities` also suffer from a significant amount of shooting incidents. `more insights here`
+```{r echo=FALSE}
+table <- get_summary_table(shootings)
+```
+`r table`
+From this table, we can see that Chicago has the most incidents of any city, with 135 casualties. Other cities such as Philadelphia and Memphis also suffer from a significant amount of shooting incidents, with 49 and 43 respectively. It can be drawn that many of the cities with the highest number of shooting-related casualties are among the most densely populated.
 
-## Description of a Particular Incident
-`find a link to a description of a particular incident`
+## Incident With The Most Casualties
+```{r echo=FALSE}
+most_casualties_info <- get_most_casualties_info(shootings)
+```
+The shooting with the most casualties overall was the [Douglas High School Shooting](https://www.nytimes.com/2018/02/14/us/parkland-school-shooting.html) in `r most_casualties_info$city`, `r most_casualties_info$state`. This shooting occurred on `r most_casualties_info$date`. There were `r most_casualties_info$n_injured` injuries and `r most_casualties_info$n_killed` deaths.
 
 ## Interactive Map
 This map allows us to judge the geographical differences in where shootings occur. Here you can see `insight one`. In addition, `insight two`.
