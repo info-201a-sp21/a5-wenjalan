@@ -1,4 +1,6 @@
-library("dplyr")
+library("dplyr", warn.conflicts = FALSE)
+options(dplyr.summarise.inform = FALSE)
+
 library("plotly")
 library("leaflet")
 library("ggplot2")

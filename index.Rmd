@@ -10,7 +10,7 @@ shootings <- read.csv("data/shootings-2018.csv", stringsAsFactors = FALSE)
 ```
 
 ## Summary Information
-```{r echo=FALSE}
+```{r echo=FALSE, warning=FALSE}
 summary <- get_summary_info(shootings)
 ```
 > See the original dataset [here]("http://www.shootingtracker.com/")
