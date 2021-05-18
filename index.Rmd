@@ -37,5 +37,10 @@ map <- get_interactive_map(shootings)
 `r map`
 This map allows us to judge the geographical differences in where shootings occur. Here you can see clearly that the locations with the most shootings are often densely populated areas. In addition, one can also view that shootings are not localized to any one state or region -- they occur throughout many places in the United States. 
 
-## Custom Plot
-Some analysis and scatterplot goes here.
+## Plot of Casualties By State
+```{r echo=FALSE}
+barplot <- get_bar_plot(shootings)
+```
+One question I had is which states would benefit the most from increased focus on shootings, and whether those states had anything in common. For that, I created this bar graph.
+`r barplot`
+One insight you can gain is that three states (California, Florida, Illinois) account for a large number of the shootings. Another insight is that even without those three states, the most popular states are the ones with more casualties, and the less popular ones with less casualties.

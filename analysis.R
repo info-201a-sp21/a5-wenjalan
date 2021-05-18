@@ -1,10 +1,11 @@
 library('dplyr')
 library('plotly')
 library('leaflet')
-library('htmltools')
+library('ggplot2')
+library('lubridate')
 
 # load data
-# data <- read.csv('data/shootings-2018.csv', stringsAsFactors = FALSE)
+data <- read.csv('data/shootings-2018.csv', stringsAsFactors = FALSE)
 
 # returns a list of data used for the summary
 get_summary_info <- function(data) {
@@ -156,4 +157,49 @@ get_interactive_map <- function(data) {
   
   # return the map
   return (map)
+}
+
+# returns a bar plot of number of casualties in each state
+get_bar_plot <- function(data) {
+  # create a summary frame for easy graphing
+  graph_data <- data %>%
+    group_by(
+      state
+    ) %>%
+    summarize(
+      state = state.abb[match(state, state.name)],
+      casualties = sum(num_killed) + sum(num_injured)
+    ) %>%
+    distinct(
+      state,
+      casualties
+    )
+  
+  # create the plot
+  plot <- ggplot(
+      data = graph_data,
+      aes(
+        x = reorder(state, -casualties),
+        y = casualties
+      )
+    ) +
+    ggtitle(
+      "Casualties by State"
+    ) +
+    xlab(
+      "State"
+    ) +
+    ylab(
+      "Casualties"
+    ) +
+    geom_bar(
+      stat = 'identity',
+      width = 0.5,
+    )
+  
+  # wrap it in plotly?
+  plot <- ggplotly(plot)
+    
+  # return the plot
+  return (plot)
 }
