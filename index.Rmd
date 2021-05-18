@@ -7,12 +7,17 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Summary Information
+## Summary Information
+In the United States, there have been `n_shootings` shootings. In those shootings, `n_lives_lost` lives have been lost. `max_city_impact` was the city most impacted by these shootings, with the most combined injuries and deaths of any city. On average, every shooting that occurs in the US will lead to the death of `avg_death` deaths. On average, every shooting will also have `avg_injuries` injuries as well.
 
-# Summary Table
+## Summary Table
+From this table, we can see that `max_city` has the most incidents of any city, `but not by a lot`. Other cities such as `other cities` also suffer from a significant amount of shooting incidents. `more insights here`
 
-# Description of a Particular Incident
+## Description of a Particular Incident
+`find a link to a description of a particular incident`
 
-# Interactive Map
+## Interactive Map
+This map allows us to judge the geographical differences in where shootings occur. Here you can see `insight one`. In addition, `insight two`.
 
-# Custom Plot
+## Custom Plot
+Some analysis and scatterplot goes here.
